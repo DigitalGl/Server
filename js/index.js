@@ -26,10 +26,12 @@ let lisStudent = [
 ]
 
 
-console.log(lisStudent);
+const $studeTable = document.getElementById('stud-table')
 
 
 
-
+for (const studObj of lisStudent) {
+    console.log(studObj);
+}
 
 
