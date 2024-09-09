@@ -28,10 +28,14 @@ let lisStudent = [
 
 const $studeTable = document.getElementById('stud-table')
 
-
-
 for (const studObj of lisStudent) {
-    console.log(studObj);
+    const $tr = document.createElement("tr")
+    const $tdFIO = document.createElement("td")
+    const $tdBirthday = document.createElement("tr")
+    const $tdFaculty = document.createElement("tr")
+    const $tdStart = document.createElement("tr")
+
+    $studeTable.append()
 }
 
 
