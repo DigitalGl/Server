@@ -35,7 +35,8 @@ for (const studObj of lisStudent) {
     const $tdFaculty = document.createElement("tr")
     const $tdStart = document.createElement("tr")
 
-    $studeTable.append()
+    $tr.append($tdFIO, $tdBirthday, $tdFaculty, $tdStart)
+    $studeTable.append($tr)
 }
 
 
