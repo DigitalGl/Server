@@ -80,3 +80,21 @@ for (const studObj of copyArr) {
 }
 
 render(lisStudent)
+
+
+document.getElementById("add-form").addEventListener("submit", function(event){
+    event.preventDefault()
+
+    let newStudentObj = {
+        name: document.getElementById("name-inp").value,
+        lastname: document.getElementById("lastname-inp").value,
+        surename: document.getElementById("surename-inp").value,
+        birthday: new Date(document.getElementById("birthday-inp").value),
+        faculty: document.getElementById("faculty-inp").value,
+        start: document.getElementById("start-inp").value,
+    }
+
+    lisStudent.push(newStudentObj)
+    render(lisStudent)
+
+})
