@@ -1,30 +1,51 @@
-let lisStudent = [
-    {
-        name: 'Илья',
-        lastname: 'Иванов',
-        surename: 'Олегович',
-        birthday: new Date(1994, 5, 12),
-        faculty: 'Экономика',
-        start: 2010,
-    },
-    {
-        name: 'Оля',
-        lastname: 'Студентова',
-        surename: 'Александровна',
-        birthday: new Date(1991, 11, 18),
-        faculty: 'Экономика',
-        start: 2011,
-    },
-    {
-        name: 'Татьяна',
-        lastname: 'Иванова',
-        surename: 'Олеговина',
-        birthday: new Date(1997, 4, 1),
-        faculty: 'Информатика',
-        start: 2016,
-    },
-]
+const SERVER_URL = 'http://localhost:3000'
 
+async function serverAddStudent(obj){
+    let response = await fetch(SERVER_URL + '/api/students', {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(obj),
+    })
+
+    let data = response.json()
+
+    return data
+}
+
+console.log();
+
+
+
+
+
+// let lisStudent = [
+//     {
+//         name: 'Илья',
+//         lastname: 'Иванов',
+//         surename: 'Олегович',
+//         birthday: new Date(1994, 5, 12),
+//         faculty: 'Экономика',
+//         studyStart: 2010,
+//     },
+//     {
+//         name: 'Оля',
+//         lastname: 'Студентова',
+//         surename: 'Александровна',
+//         birthday: new Date(1991, 11, 18),
+//         faculty: 'Экономика',
+//         studyStart: 2011,
+//     },
+//     {
+//         name: 'Татьяна',
+//         lastname: 'Иванова',
+//         surename: 'Олеговина',
+//         birthday: new Date(1997, 4, 1),
+//         faculty: 'Информатика',
+//         studyStart: 2016,
+//     },
+// ]
+
+let lisStudent = []
 
 
 function formatDate(date) {
@@ -50,15 +71,15 @@ function $getNewStudentTR(studObj){
     const $tdFIO = document.createElement("td")
     const $tdBirthday = document.createElement("td")
     const $tdFaculty = document.createElement("td")
-    const $tdStart = document.createElement("td")
+    const $tdStudyStart = document.createElement("td")
 
     $tdFIO.textContent = `${studObj.lastname} ${studObj.name} ${studObj.surename}`
     $tdBirthday.textContent = formatDate(studObj.birthday)
     $tdFaculty.textContent = studObj.faculty
-    $tdStart.textContent = studObj.start
+    $tdStudyStart.textContent = studObj.studyStart
 
 
-    $tr.append($tdFIO, $tdBirthday, $tdFaculty, $tdStart)
+    $tr.append($tdFIO, $tdBirthday, $tdFaculty, $tdStudyStart)
     return $tr
 }
 
@@ -82,7 +103,7 @@ for (const studObj of copyArr) {
 render(lisStudent)
 
 
-document.getElementById("add-form").addEventListener("submit", function(event){
+document.getElementById("add-form").addEventListener("submit", async function(event){
     event.preventDefault()
 
     let newStudentObj = {
@@ -91,10 +112,13 @@ document.getElementById("add-form").addEventListener("submit", function(event){
         surename: document.getElementById("surename-inp").value,
         birthday: new Date(document.getElementById("birthday-inp").value),
         faculty: document.getElementById("faculty-inp").value,
-        start: document.getElementById("start-inp").value,
+        studyStart: document.getElementById("studyStart-inp").value,
     }
 
-    lisStudent.push(newStudentObj)
+    let servDataObj =  await serverAddStudent(newStudentObj)
+    servDataObj.birthday = new Date(servDataObj.birthday)
+
+    lisStudent.push(servDataObj)
     render(lisStudent)
 
 })
